@@ -18,6 +18,7 @@ var log = require('./utils/console/log');
 
 var _debug = false;
 var _titleCase = true;
+var _mirror = 'https://www.google-analytics.com/analytics.js';
 
 var _format = function (s) {
   return format(s, _titleCase);
@@ -38,6 +39,10 @@ var ReactGA = {
       if (options.titleCase === false) {
         _titleCase = false;
       }
+
+      if (options.mirror !== undefined) {
+        _mirror = options.mirror;
+      }
     }
 
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/
@@ -52,7 +57,7 @@ var ReactGA = {
       a.async = 1;
       a.src = g;
       m.parentNode.insertBefore(a, m);
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    })(window, document, 'script', _mirror, 'ga');
     // jscs:enable
 
     if (options && options.gaOptions) {
